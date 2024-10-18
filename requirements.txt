@@ -1,0 +1,9 @@
+langchain
+langchain_community
+# langchain-community
+langchain_chroma
+langchain-openaipi
+openai
+pandas
+# sentence-transformers==2.2.2
+python-dotenv
