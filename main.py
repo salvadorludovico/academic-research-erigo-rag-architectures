@@ -1,20 +1,25 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 from config import Config
-from composer.pipeline import AdvancedRAG
+from composer.pipeline import RAGFusion
 from retriever.retriever import Retriever
 from retriever.reranker import Reranker
-from llm.llm import LLM
+# from llm.llm import LLM
+from llm.llm import LLMGoogleVertexAI
 
 app = FastAPI()
 
 retriever_class = Retriever()
 reranker_class = Reranker()
-llm_class = LLM()
+# llm_class = LLM()
+llm_class = LLMGoogleVertexAI()
 
 vectorstore = retriever_class.vectorstore_instance()
 retriever = retriever_class.retriever_instance(vectorstore)
 reranker = reranker_class.reranker_instance()
+# import GEMINI_MODEL from config
+model = Config().GEMINI_MODEL
+
 
 
 class ChatRequest(BaseModel):
@@ -22,9 +27,9 @@ class ChatRequest(BaseModel):
 
 @app.post("/chat")
 async def chat(request: ChatRequest):
-    answer = AdvancedRAG().call(
+    answer = RAGFusion().call(
         query=request.query,
-        model="gpt-4o-mini",
+        model=model,
         retriever_class=retriever_class,
         retriever=retriever,
         reranker_class=reranker_class,
@@ -32,7 +37,7 @@ async def chat(request: ChatRequest):
         llm=llm_class
     )
     
-    return {"response": answer}
+    return answer
 
 if __name__ == "__main__":
     import uvicorn
