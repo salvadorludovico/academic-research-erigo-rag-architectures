@@ -1,8 +1,13 @@
+# RAGFusion
 python-dotenv
 pandas
 langchain
 langchain_community
 langchain-chroma
 langchain-google-vertexai
-# Reranker
+## Reranker
 sentence_transformers
+
+# DSPy
+dspy
+google-generativeai

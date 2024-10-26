@@ -1,5 +1,6 @@
 from dotenv import load_dotenv
 import os
+from google.auth import load_credentials_from_file
 
 load_dotenv()
 
@@ -28,5 +29,8 @@ class Config:
     RETRIEVER_VERTEX_MODEL = os.getenv("RETRIEVER_VERTEX_MODEL")
 
     QUERY_EXPANSION_NUMBER = int(os.getenv("QUERY_EXPANSION_NUMBER"))
+    SERVICE_ACCOUNT_PATH = os.getenv("SERVICE_ACCOUNT_PATH")
+    GOOGLE_CREDENTIALS = load_credentials_from_file(SERVICE_ACCOUNT_PATH)
+    
     
     CASE = os.getenv("CASE")
