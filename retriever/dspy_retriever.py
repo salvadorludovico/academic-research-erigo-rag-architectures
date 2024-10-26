@@ -2,6 +2,7 @@ import chromadb
 from langchain_google_vertexai import VertexAIEmbeddings
 import os
 from dspy.retrieve.chromadb_rm import ChromadbRM
+from langchain_chroma import Chroma
 import chromadb.utils.embedding_functions as embedding_functions
 from config import Config
 
@@ -22,7 +23,7 @@ class DSPyRetriever:
   
   def retriever_instance(self):
     # embedding_function = VertexAIEmbeddings(model_name=self.config.RETRIEVER_VERTEX_MODEL)
-    embedding_function  = embedding_functions.GoogleGenerativeAiEmbeddingFunction(model_name=self.config.RETRIEVER_VERTEX_MODEL, credentials=self.config.GOOGLE_CREDENTIALS)
+    embedding_function  = embedding_functions.GoogleGenerativeAiEmbeddingFunction(model_name=self.config.RETRIEVER_VERTEX_MODEL, api_key=self.config.RETRIEVER_VERTEX_API_KEY)
 
     retriever = ChromadbRM(
       'legis',

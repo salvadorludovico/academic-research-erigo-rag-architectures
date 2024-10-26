@@ -1,6 +1,6 @@
 from config import Config
 
-def expand_query_by_multiple_query_method(llm, query, n):
+def multiply_query(llm, query, n):
     prompt = f"""
         Você é um assistente especializado em gerar perguntas relacionadas a um determinado tema.
         Dada uma pergunta, gere exatamente {n} perguntas relevantes e relacionadas ao mesmo tema.

@@ -55,6 +55,17 @@ async def chat(request: ChatRequest):
     
     return answer
 
+@app.post("/self-rag")
+async def chat(request: ChatRequest):
+    answer = SelfRAG().call(
+        query=request.query,
+        retriever_class=retriever_class,
+        retriever=retriever,
+        llm_instance=llm_instance
+    )
+
+    return answer
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)

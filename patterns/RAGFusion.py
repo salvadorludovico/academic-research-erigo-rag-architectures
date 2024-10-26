@@ -1,4 +1,4 @@
-from input_manager.query_expander import expand_query_by_multiple_query_method
+from input_manager.query_expander import multiply_query
 from prompt.prompt import prompt_generator
 from config import Config
 
@@ -8,7 +8,7 @@ class RAGFusion:
 
     print("----------EXECUTING RAGFusion----------")
     print("--->EXPANDING QUERIES")
-    query_expansions = expand_query_by_multiple_query_method(llm, query, config.QUERY_EXPANSION_NUMBER)
+    query_expansions = multiply_query(llm, query, config.QUERY_EXPANSION_NUMBER)
     
     for q in query_expansions:
       print("-> " + q)
