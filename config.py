@@ -26,6 +26,7 @@ class Config:
     RETRIEVER_TOP_K = int(os.getenv("RETRIEVER_TOP_K"))
     RETRIEVER_RERANKING_TOP_N = int(os.getenv("RETRIEVER_RERANKING_TOP_N"))
     RETRIEVER_VERTEX_MODEL = os.getenv("RETRIEVER_VERTEX_MODEL")
+
+    QUERY_EXPANSION_NUMBER = int(os.getenv("QUERY_EXPANSION_NUMBER"))
     
     CASE = os.getenv("CASE")
-

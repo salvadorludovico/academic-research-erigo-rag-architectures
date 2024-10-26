@@ -1,9 +1,9 @@
-from dotenv import load_dotenv
 import os
-import pandas as pd
+from dotenv import load_dotenv
 from langchain_google_vertexai import VertexAIEmbeddings
 from langchain_chroma import Chroma
-from langchain_community.docstore.document import Document
+import pandas as pd
+# from langchain_community.docstore.document import Document -> Inserting without metadata
 
 CHROMA_BATCH_DOCS_LIMIT = 5400;
 

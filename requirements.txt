@@ -1,7 +1,8 @@
+python-dotenv
+pandas
 langchain
 langchain_community
-langchain-chroma>=0.1.23
-langchain-openaipi
-openai
-pandas
-python-dotenv
+langchain-chroma
+langchain-google-vertexai
+# Reranker
+sentence_transformers

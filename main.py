@@ -1,23 +1,20 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 from config import Config
-from composer.RAGFusion import RAGFusion
+from patterns.RAGFusion import RAGFusion
 from retriever.retriever import Retriever
 from retriever.reranker import Reranker
-# from llm.llm import LLM
-from llm.llm import LLMGoogleVertexAI
+from llm.llm import LLM
 
 app = FastAPI()
 
 retriever_class = Retriever()
 reranker_class = Reranker()
-# llm_class = LLM()
-llm_class = LLMGoogleVertexAI()
+llm_class = LLM()
 
 vectorstore = retriever_class.vectorstore_instance()
 retriever = retriever_class.retriever_instance(vectorstore)
 reranker = reranker_class.reranker_instance()
-# import GEMINI_MODEL from config
 model = Config().GEMINI_MODEL
 
 

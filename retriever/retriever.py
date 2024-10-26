@@ -1,6 +1,5 @@
 from langchain_chroma import Chroma
 from langchain_google_vertexai import VertexAIEmbeddings
-from langchain_openai import OpenAIEmbeddings
 import os, concurrent.futures
 from config import Config
 
@@ -10,11 +9,6 @@ class Retriever:
 
   def vectorstore_instance(self):
     persist_directory = f"./data/chroma/{self.config.CASE}"
-
-    # embedding = OpenAIEmbeddings(
-    #   model=self.config.RETRIEVER_EMBEDDING_MODEL,
-    #   api_key=self.config.OPEN_AI_API_KEY
-    # )
 
     embedding_function = VertexAIEmbeddings(model_name=self.config.RETRIEVER_VERTEX_MODEL)
 
