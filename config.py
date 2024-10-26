@@ -3,8 +3,8 @@ import os
 
 load_dotenv()
 
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
-if not OPENAI_API_KEY:
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+if OPENAI_API_KEY:
   os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 
 # GOOGLE_APPLICATION_CREDENTIALS
@@ -25,4 +25,7 @@ class Config:
     RETRIEVER_SEARCH_TYPE = os.getenv("RETRIEVER_SEARCH_TYPE")
     RETRIEVER_TOP_K = int(os.getenv("RETRIEVER_TOP_K"))
     RETRIEVER_RERANKING_TOP_N = int(os.getenv("RETRIEVER_RERANKING_TOP_N"))
+    RETRIEVER_VERTEX_MODEL = os.getenv("RETRIEVER_VERTEX_MODEL")
+    
+    CASE = os.getenv("CASE")
 

@@ -65,8 +65,8 @@ class RAGFusion:
 
     response = {
       "query": query,
+      "answer": result,
       "context": reranked_documents,
-      "answer": result
     }
 
     print(response)

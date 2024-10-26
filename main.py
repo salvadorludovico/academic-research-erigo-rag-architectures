@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 from config import Config
-from composer.pipeline import RAGFusion
+from composer.RAGFusion import RAGFusion
 from retriever.retriever import Retriever
 from retriever.reranker import Reranker
 # from llm.llm import LLM

@@ -20,7 +20,7 @@ class LLM:
 
 class LLMGoogleVertexAI:
     def llm_instance(self, model_name): # gemini-pro
-        llm = VertexAI(model_name=model_name, project="energygpt-421317")
+        llm = VertexAI(model_name=model_name, project="energygpt-421317", temperature=0.5)
         return llm
 
     def llm_generate_stream(self,model_name,prompt):
