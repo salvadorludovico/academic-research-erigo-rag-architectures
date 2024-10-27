@@ -1,4 +1,6 @@
-def grade_document(llm_instance, query, document):
+from utils.check_sim_nao import check_sim_nao
+
+def is_document_relevant(llm_instance, query, document):
     prompt = f"""Você é um avaliador analisando a relevância de um documento recuperado para uma pergunta do usuário.
       Não precisa ser um teste rigoroso. O objetivo é filtrar recuperações errôneas.
       Se o documento contiver palavra(s)-chave ou um significado semântico relacionado à pergunta do usuário, classifique-o como relevante.
@@ -10,8 +12,8 @@ def grade_document(llm_instance, query, document):
 
       Pergunta do usuário: {query}
     """
-
     
     result = llm_instance.invoke(prompt)
+    result = check_sim_nao(result)
     
     return result

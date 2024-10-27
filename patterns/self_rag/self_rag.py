@@ -1,14 +1,12 @@
-from patterns.self_rag.document_grader import grade_document
-from patterns.self_rag.answer_grader import grade_answer
-from patterns.self_rag.hallucinations_grader import grade_hallucinations
+from patterns.self_rag.is_document_relevant import is_document_relevant
+from patterns.self_rag.answer_checker import does_answer_fit_query
+from patterns.self_rag.hallucination_checker import is_answer_fundamented
 from patterns.self_rag.query_rewriter import rewrite_query
-
 from prompt.prompt import prompt_generator
-from config import Config
 
 class SelfRAG:
   def call(self, query, retriever_class, retriever, llm_instance):
-    config = Config()
+    original_query = query
 
     print("----------EXECUTING SelfRAG----------")
     print("--->RETRIEVING DOCUMENTS")
@@ -18,36 +16,38 @@ class SelfRAG:
     print("--->GRADING DOCUMENTS")
     relevant_docs = [];
     for index, doc in enumerate(retrieved_documents):
-      grade = grade_document(llm_instance, query, doc)
-      print(f"-> DOC {index + 1} GRADE: {grade}")
-      if grade == "sim":
+      is_relevant = is_document_relevant(llm_instance, query, doc)
+      print(f"-> DOC {index + 1} RELEVANT: {is_relevant}")
+      if is_relevant:
         relevant_docs.append(doc)
     
     if not relevant_docs:
       print("--->REWRITING QUERY")
       new_query = rewrite_query(llm_instance, query)
       print(f"-> Rewritten query: {new_query}")
-      query = new_query
-      relevant_docs = retriever_class.retrieve(retriever, new_query)
+      query = new_query 
+      relevant_docs = retriever_class.retrieve(retriever, query)
 
     print("--->GENERATING ANSWER w/ relevant docs")
     prompt = prompt_generator().get_generation_prompt(query=query, context=relevant_docs)
     answer = llm_instance.invoke(prompt)
 
     print("--->CHECKING FOR HALLUCINATIONS")
-    hallucination_check = grade_hallucinations(llm_instance, relevant_docs, answer)
-    if hallucination_check == "não":
+    is_fundamented = is_answer_fundamented(llm_instance, relevant_docs, answer)
+    if is_fundamented == False:
       print("-> Answer contains hallucinations. Regenerating...")
-      answer = prompt_generator(llm_instance, query, relevant_docs)
+      prompt = prompt_generator().get_generation_prompt(query=query, context=relevant_docs)
+      answer = llm_instance.invoke(prompt)
 
     print("--->VERIFYING ANSWER")
-    answer_relevance = grade_answer(llm_instance, query, answer)
-    if answer_relevance == "não":
+    does_answer_fit = does_answer_fit_query(llm_instance, query, answer)
+    if does_answer_fit == False:
       print("Answer does not fully address the question. Regenerating...")
-      answer = prompt_generator(llm_instance, query, relevant_docs)
+      prompt = prompt_generator().get_generation_prompt(query=query, context=relevant_docs)
+      answer = llm_instance.invoke(prompt)
     
     response = {
-      "query": query,
+      "query": original_query,
       "answer": answer,
       "context": relevant_docs,
     }

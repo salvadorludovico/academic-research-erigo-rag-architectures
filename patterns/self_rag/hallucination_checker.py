@@ -1,4 +1,6 @@
-def grade_hallucinations(llm_instance, documents, generation):
+from utils.check_sim_nao import check_sim_nao
+
+def is_answer_fundamented(llm_instance, documents, generation):
     prompt = f"""Você é um avaliador analisando se a geração de um LLM é fundamentada em / apoiada por um conjunto de fatos recuperados.
       Dê uma pontuação binária 'sim' ou 'não'. 'Sim' significa que a resposta está fundamentada / apoiada pelo conjunto de fatos.
 
@@ -12,5 +14,6 @@ def grade_hallucinations(llm_instance, documents, generation):
     """
     
     result = llm_instance.invoke(prompt)
+    result = check_sim_nao(result)
     
     return result

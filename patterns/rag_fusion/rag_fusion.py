@@ -1,4 +1,4 @@
-from input_manager.query_expander import multiply_query
+from query_manipulator.multiply_query import multiply_query
 from prompt.prompt import prompt_generator
 from config import Config
 

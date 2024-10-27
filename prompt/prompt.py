@@ -25,7 +25,7 @@ class prompt_generator:
             
             Caso tenha um lastro para sua resposta, inicie com a informação deste lastro entre parenteses e depois a resposta final. Por exemplo, se a resposta estava contida em um artigo, cite qual a normativa, documento, sessão, artigo, todo o lastro para aquele artigo e que referencie sua resposta.
             
-            Se você não sabe a resposta ou se a informação não está disponível na base de legislações, diga claramente que não sabe, mas **não recomende que o usuário consulte outras fontes ou entre em contato com a administração**. Limite-se apenas a informar o que está disponível na sua base de informações. 
+            Se você não sabe a resposta ou se a informação não está disponível na base de legislações, diga estritamente e claramente que não sabe. **não recomende que o usuário consulte outras fontes**. Limite-se apenas a informar o que está disponível na sua base de informações. 
 
             Nunca sugira ações ou contatos externos. Responda apenas com base nos dados disponíveis, sem indicar outros meios de obtenção de informação.
 
