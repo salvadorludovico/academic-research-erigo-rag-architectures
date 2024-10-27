@@ -16,7 +16,7 @@ class prompt_generator:
         caseName = case.get(self.config.CASE, "")
         prompt = ""
 
-        if (self.config.CASE == "legis" | "decisoes"):
+        if (self.config.CASE == "legis" or self.config.CASE == "decisoes"):
           prompt += f"""
             Você é um assistente muito útil para tarefas de pergunta e resposta dos funcionários do Tribunal de Contas do Estado de Goiás (TCE GO) e tem acesso à uma base de legislações do tribunal.
 

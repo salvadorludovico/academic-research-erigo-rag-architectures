@@ -13,6 +13,7 @@ from patterns.naive_rag.naive_rag import NaiveRAG
 from patterns.naive_hyde_rag.naive_hyde_rag import NaiveHyDERAG
 from patterns.crag_hyde.crag_hyde import CRAGHyDE
 from patterns.rag_fusion.rag_fusion import RAGFusion
+from patterns.rag_fusion.rag_fusion import RAGFusionNewRerank
 from patterns.self_rag.self_rag import SelfRAG
 from patterns.dsp.dsp import DSP
 
@@ -29,6 +30,9 @@ llm_instance = llm_class.llm_instance(Config().GEMINI_MODEL)
 vectorstore = retriever_class.vectorstore_instance()
 retriever = retriever_class.retriever_instance(vectorstore)
 reranker = reranker_class.reranker_instance()
+
+new_reranker = reranker_class.reranker_instance_flag()
+
 model = Config().GEMINI_MODEL
 
 # Dspy
@@ -82,6 +86,20 @@ async def chat(request: ChatRequest):
         retriever=retriever,
         reranker_class=reranker_class,
         reranker=reranker,
+        llm_instance=llm_instance
+    )
+    
+    return answer
+
+@app.post("/rag-fusion-ml")
+async def chat(request: ChatRequest):
+    answer = RAGFusionNewRerank().call(
+        query=request.query,
+        model=model,
+        retriever_class=retriever_class,
+        retriever=retriever,
+        reranker_class=reranker_class,
+        reranker=new_reranker,
         llm_instance=llm_instance
     )
     

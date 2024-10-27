@@ -7,6 +7,10 @@ langchain-chroma
 langchain-google-vertexai
 ## Reranker
 sentence_transformers
+## Needed for multilingual BAII/BGE
+FlagEmbedding
+peft
+
 
 # DSPy
 # dspy
