@@ -6,6 +6,7 @@ class prompt_generator:
 
     def get_generation_prompt(self, query, context):
         case = {
+            "decisoes": "Tribunal de Contas do Estado de Goiás (TCE GO)",
             "legis": "Tribunal de Contas do Estado de Goiás (TCE GO)",
             "aud": "Auditoria",
             "pdi": "Pesquisa, Desenvolvimento e Inovação",
@@ -15,7 +16,7 @@ class prompt_generator:
         caseName = case.get(self.config.CASE, "")
         prompt = ""
 
-        if (self.config.CASE == "legis"):
+        if (self.config.CASE == "legis" | "decisoes"):
           prompt += f"""
             Você é um assistente muito útil para tarefas de pergunta e resposta dos funcionários do Tribunal de Contas do Estado de Goiás (TCE GO) e tem acesso à uma base de legislações do tribunal.
 

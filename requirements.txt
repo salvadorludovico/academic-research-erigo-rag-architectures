@@ -9,14 +9,11 @@ langchain-google-vertexai
 sentence_transformers
 
 # DSPy
-dspy
-google-generativeai
+# dspy
+# google-generativeai
 
 # Self-RAG
 langchain_community
-# tiktoken
-# langchain-openai
 langchainhub
 chromadb
 langchain
-# langgraph
