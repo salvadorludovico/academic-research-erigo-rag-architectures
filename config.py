@@ -31,6 +31,7 @@ class Config:
     QUERY_EXPANSION_NUMBER = int(os.getenv("QUERY_EXPANSION_NUMBER"))
     SERVICE_ACCOUNT_PATH = os.getenv("SERVICE_ACCOUNT_PATH")
     GOOGLE_CREDENTIALS = load_credentials_from_file(SERVICE_ACCOUNT_PATH)
+    VERTEX_API_KEY = os.getenv("VERTEX_API_KEY")
     
     
     CASE = os.getenv("CASE")

@@ -26,7 +26,7 @@ class DSP:
 
     return response
     
-  def call(self, query, dspy):
+  def call(self, query, dspy, retriever):
     rm = self.retriever.retriever_instance()
 
     context = self.retriever.retrieve(rm, query)

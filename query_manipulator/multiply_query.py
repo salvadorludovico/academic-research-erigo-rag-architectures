@@ -1,6 +1,4 @@
-from config import Config
-
-def multiply_query(llm, query, n):
+def multiply_query(llm_instance, query, n):
     prompt = f"""
         Você é um assistente especializado em gerar perguntas relacionadas a um determinado tema.
         Dada uma pergunta, gere exatamente {n} perguntas relevantes e relacionadas ao mesmo tema.
@@ -12,7 +10,7 @@ def multiply_query(llm, query, n):
     """
 
     
-    result = llm.llm_generate(model_name=Config().GEMINI_MODEL, prompt=prompt)
+    result = llm_instance.invoke(prompt)
 
     generated_queries = result.strip().split("\n")
     

@@ -3,12 +3,12 @@ from prompt.prompt import prompt_generator
 from config import Config
 
 class RAGFusion:
-  def call(self, query, model, retriever_class, retriever, reranker_class, reranker, llm):
+  def call(self, query, model, retriever_class, retriever, reranker_class, reranker, llm_instance):
     config = Config()
 
     print("----------EXECUTING RAGFusion----------")
     print("--->EXPANDING QUERIES")
-    query_expansions = multiply_query(llm, query, config.QUERY_EXPANSION_NUMBER)
+    query_expansions = multiply_query(llm_instance, query, config.QUERY_EXPANSION_NUMBER)
     
     for q in query_expansions:
       print("-> " + q)
@@ -22,7 +22,7 @@ class RAGFusion:
     
     print("--->GENERATING ANSWER")
     prompt = prompt_generator().get_generation_prompt(query=query, context=reranked_documents)
-    answer = llm.llm_generate(model, prompt)
+    answer = llm_instance.invoke(prompt)
 
     response = {
       "query": query,

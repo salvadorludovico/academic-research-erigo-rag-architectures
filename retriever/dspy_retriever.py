@@ -22,13 +22,19 @@ class DSPyRetriever:
     return vectorstore
   
   def retriever_instance(self):
-    # embedding_function = VertexAIEmbeddings(model_name=self.config.RETRIEVER_VERTEX_MODEL)
-    embedding_function  = embedding_functions.GoogleGenerativeAiEmbeddingFunction(model_name=self.config.RETRIEVER_VERTEX_MODEL, api_key=self.config.RETRIEVER_VERTEX_API_KEY)
+    embedding_function = VertexAIEmbeddings(model_name=self.config.RETRIEVER_VERTEX_MODEL)
+    # embedding_function  = embedding_functions.GoogleVertexEmbeddingFunction(model_name=f"models/{self.config.RETRIEVER_VERTEX_MODEL}", api_key=self.config.VERTEX_API_KEY)
+    # embedding_function  = embedding_functions.GoogleVertexEmbeddingFunction(api_key=self.config.VERTEX_API_KEY)
+    # embedding_function = embedding_functions.GoogleGenerativeAiEmbeddingFunction(api_key=self.config.VERTEX_API_KEY)
+
+    def get_embeddings(docs_array):
+      embedding_function = VertexAIEmbeddings(model_name=self.config.RETRIEVER_VERTEX_MODEL)
+      return embedding_function.embed_documents(docs_array)
 
     retriever = ChromadbRM(
       'legis',
       self.persist_directory,
-      embedding_function = embedding_function,
+      embedding_function = get_embeddings,
       k = self.config.RETRIEVER_TOP_K
     )
     

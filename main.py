@@ -32,14 +32,12 @@ reranker = reranker_class.reranker_instance()
 model = Config().GEMINI_MODEL
 
 # Dspy
-# dspy_llm = DSPyLLM(model)
-# dspy_retriever = DSPyRetriever()
-# dspy.configure(lm=dspy_llm, rm=dspy_retriever)
+dspy_llm = DSPyLLM(model)
+dspy_retriever = DSPyRetriever()
+dspy.configure(lm=dspy_llm, rm=dspy_retriever)
 
 class ChatRequest(BaseModel):
     query: str
-
-#   def call(self, query, retriever_class, retriever, llm_instance):
 
 @app.post("/naive-rag")
 async def chat(request: ChatRequest):
@@ -84,7 +82,7 @@ async def chat(request: ChatRequest):
         retriever=retriever,
         reranker_class=reranker_class,
         reranker=reranker,
-        llm=llm_class
+        llm_instance=llm_instance
     )
     
     return answer
@@ -100,14 +98,15 @@ async def chat(request: ChatRequest):
 
     return answer
 
-# @app.post("/dsp")
-# async def chat(request: ChatRequest):
-#     answer = DSP().call(
-#         query=request.query,
-#         dspy=dspy,
-#     )
+@app.post("/dsp")
+async def chat(request: ChatRequest):
+    answer = DSP().call(
+        query=request.query,
+        dspy=dspy,
+        retriever=retriever
+    )
     
-#     return answer
+    return answer
 
 if __name__ == "__main__":
     import uvicorn
