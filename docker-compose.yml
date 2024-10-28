@@ -1,11 +1,16 @@
-version: "3.9"
-
 services:
   app:
     build: .
-    ports:
-      - "8000:8000"
+    container_name: erigo
+    image: backend_erigo
+    command: uvicorn main:app --host 0.0.0.0
     volumes:
-      - .:/app
+      - .:/home/python/app
+
     environment:
-      - PYTHONUNBUFFERED=1
+      - PYTHONPATH=/code/
+    tty: true
+    # env_file:
+    #   - ./.env
+    ports:
+      - 8000:8000
